@@ -94,6 +94,29 @@ describe("intersection", () => {
             expect(result[0].getPath()).toEqual(expectedResult[0].getPath());
             expect(result[1].getPath()).toEqual(expectedResult[1].getPath());
         });
+        it("should return 4 points", () => {
+            const poly1 = new Polygon([
+                new Point(2, 1),
+                new Point(2, 13),
+                new Point(16, 13),
+                new Point(16, 1)
+            ]);
+            const poly2 = new Polygon([
+                new Point(17, 2),
+                new Point(14, 2),
+                new Point(14, 6),
+                new Point(17, 6)
+            ]);
+            const expected = new Polygon([
+                new Point(16, 6),
+                new Point(14, 6),
+                new Point(14, 2),
+                new Point(16, 2)
+            ]);
+            const result = intersection(poly1, poly2);
+            expect(result.length).toBe(1);
+            expect(result[0].getPath()).toEqual(expected.getPath());
+        });
     });
 
     describe("polygons touch each other without intersection", () => {
