@@ -93,21 +93,39 @@ export class Polygon {
         return count;
     }
 
-    public isPointInPoly(point: Point): boolean {
-        let isIn = false;
-        let intersectX;
-        this.edges.forEach(edge => {
-            if (edge.isIntersectHorizontalRayPoint(point)) {
-                intersectX = edge.getIntersectionRayX(point);
-                if (point.x === intersectX) {
-                    point.state = pointState.onEdge;
-                }
-                isIn = point.x <= intersectX ? !isIn : isIn;
-            }
+    public getBoundingBox(): Edge {
+        let minX = this.points[0].x;
+        let maxX = this.points[0].x;
+        let minY = this.points[0].y;
+        let maxY = this.points[0].y;
+        this.points.forEach(point => {
+            minX = Math.min(minX, point.x);
+            maxX = Math.max(maxX, point.x);
+            minY = Math.min(minY, point.y);
+            maxY = Math.max(maxY, point.y);
         });
-        if (point.state === pointState.undefined) {
-            point.state = isIn ? pointState.inPoly : pointState.outPoly;
-        }
-        return isIn;
+        return new Edge(new Point(minX, minY), new Point(maxX, maxY));
+    }
+
+    public isPointInPoly(point: Point): boolean {
+        const boundingBox = this.getBoundingBox();
+        const raySegment = new Edge(
+            new Point(
+                boundingBox.startPoint.x - 1,
+                boundingBox.startPoint.y - 1
+            ),
+            point
+        );
+        raySegment.setEdgeIntersections(this.edges);
+        const intersections = raySegment.getIntersectElements();
+        const result =
+            intersections.length % 2 === 1 ||
+            intersections.filter(intersect => {
+                const intersectPoint = intersect.point;
+                return (
+                    intersectPoint.x === point.x && intersectPoint.y === point.y
+                );
+            }).length > 0;
+        return result;
     }
 }

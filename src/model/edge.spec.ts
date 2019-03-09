@@ -16,4 +16,23 @@ describe("Edge", () => {
             );
         });
     });
+    describe("getIntersectionRayX", () => {
+        it("should return intersection rayX edge not specifc", () => {
+            const edge = new Edge(new Point(4, 4), new Point(1, 1));
+            const point = new Point(4, 1);
+            expect(edge.getIntersectionRayX(point)).toBe(4);
+        });
+        it("should return intersection rayX when point is not in bounds", () => {
+            const edge = new Edge(new Point(4, 4), new Point(1, 1));
+            const point = new Point(0.5, 1);
+            expect(edge.getIntersectionRayX(point)).toBe(0.5);
+        });
+    });
+    describe("getIntersectionRayY", () => {
+        it("should return intersection rayY when point is in bounds", () => {
+            const edge = new Edge(new Point(4, 4), new Point(1, 1));
+            const point = new Point(1, 4);
+            expect(edge.getIntersectionRayY(point)).toBe(4);
+        });
+    });
 });

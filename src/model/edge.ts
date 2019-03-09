@@ -62,20 +62,20 @@ export class Edge {
         return this.intersectCount;
     }
 
-    public isIntersectHorizontalRayPoint(point) {
-        return (
-            (point.y >= this.startPoint.y && point.y < this.endPoint.y) ||
-            (point.y >= this.endPoint.y && point.y < this.startPoint.y)
-        );
-    }
     public isIntersectVerticalRayPoint(point) {
         return (
-            (point.x >= this.startPoint.x && point.x < this.endPoint.x) ||
-            (point.x >= this.endPoint.x && point.x < this.startPoint.x)
+            point.y >= Math.min(this.startPoint.y, this.endPoint.y) &&
+            point.y <= Math.max(this.startPoint.y, this.endPoint.y)
+        );
+    }
+    public isIntersectHorizontalRayPoint(point) {
+        return (
+            point.x >= Math.min(this.startPoint.x, this.endPoint.x) &&
+            point.x <= Math.max(this.startPoint.x, this.endPoint.x)
         );
     }
 
-    public getIntersectionRayX(point) {
+    public getIntersectionRayY(point) {
         return (
             ((this.endPoint.x - this.startPoint.x) *
                 (point.y - this.startPoint.y)) /
@@ -83,7 +83,7 @@ export class Edge {
             this.startPoint.x
         );
     }
-    public getIntersectionRayY(point) {
+    public getIntersectionRayX(point) {
         return (
             ((this.endPoint.y - this.startPoint.y) *
                 (point.x - this.startPoint.x)) /
