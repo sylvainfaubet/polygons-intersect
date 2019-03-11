@@ -36,7 +36,11 @@ export class Polygon {
         } else {
             this.edgesIndex = ++this.edgesIndex % this.edges.length;
         }
-        return this.edges[this.edgesIndex];
+        const edgeCopy = this.edges.slice(this.edgesIndex)[0];
+        if (this.direction === direction.backward) {
+            edgeCopy.changePoints();
+        }
+        return edgeCopy;
     }
 
     public isEdgeExist(edge: Edge): boolean {
@@ -51,6 +55,10 @@ export class Polygon {
             ind2 % (this.edges.length - 1) <= ind1
                 ? direction.backward
                 : direction.forward;
+    }
+
+    public isDirectionBackward() {
+        return this.direction === direction.backward;
     }
 
     public getPoints(): Point[] {
@@ -73,6 +81,10 @@ export class Polygon {
     }
 
     public addPoint(point: Point): void {
+        const lastPoint = this.points[this.points.length - 1];
+        if (lastPoint) {
+            this.edges.push(new Edge(lastPoint, point));
+        }
         this.points.push(point);
     }
 
@@ -111,21 +123,31 @@ export class Polygon {
         const boundingBox = this.getBoundingBox();
         const raySegment = new Edge(
             new Point(
-                boundingBox.startPoint.x - 1,
-                boundingBox.startPoint.y - 1
+                boundingBox.startPoint.x - 3,
+                boundingBox.startPoint.y + 1
             ),
             point
         );
         raySegment.setEdgeIntersections(this.edges);
         const intersections = raySegment.getIntersectElements();
-        const result =
-            intersections.length % 2 === 1 ||
+        if (
             intersections.filter(intersect => {
                 const intersectPoint = intersect.point;
                 return (
                     intersectPoint.x === point.x && intersectPoint.y === point.y
                 );
-            }).length > 0;
-        return result;
+            }).length > 0
+        ) {
+            point.state = pointState.onEdge;
+            return true;
+        }
+
+        if (intersections.length % 2 === 1) {
+            point.state = pointState.inPoly;
+            return true;
+        } else {
+            point.state = pointState.outPoly;
+            return false;
+        }
     }
 }

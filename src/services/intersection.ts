@@ -138,9 +138,9 @@ function findNextIntersectPoint(
     let nextPart: Edge;
     if (
         (point1.state === pointState.outPoly &&
-            edgePart1.getIntersectCount() % 2) ||
+            edgePart1.getIntersectCount() % 2 === 1) ||
         (point1.state === (pointState.inPoly || pointState.onEdge) &&
-            !(edgePart1.getIntersectCount() % 2))
+            !(edgePart1.getIntersectCount() % 2 === 1))
     ) {
         nextStartPoint = point1;
         nextPart = edgePart1;
@@ -148,7 +148,7 @@ function findNextIntersectPoint(
         nextStartPoint = point2;
         nextPart = edgePart2;
     }
-    if (nextPart.getIntersectCount()) {
+    if (nextPart.getIntersectCount() > 0) {
         const element = getFirstIntersectElem(
             nextPart,
             intersect.point,
@@ -188,10 +188,10 @@ function findNextIntersectPoint(
         if (i !== 0) {
             nextEdge = ownPoly.getNextEdge();
         }
-
         point = nextEdge.startPoint;
 
         addPointToPoliesIfInPoly(point, poly, intersectPolies);
+
         nextEdge.setEdgeIntersections(poly.getEdges());
 
         if (!nextEdge.getIntersectCount()) {

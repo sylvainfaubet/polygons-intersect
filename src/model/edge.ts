@@ -65,13 +65,13 @@ export class Edge {
     public isIntersectVerticalRayPoint(point) {
         return (
             point.y >= Math.min(this.startPoint.y, this.endPoint.y) &&
-            point.y <= Math.max(this.startPoint.y, this.endPoint.y)
+            point.y < Math.max(this.startPoint.y, this.endPoint.y)
         );
     }
     public isIntersectHorizontalRayPoint(point) {
         return (
             point.x >= Math.min(this.startPoint.x, this.endPoint.x) &&
-            point.x <= Math.max(this.startPoint.x, this.endPoint.x)
+            point.x < Math.max(this.startPoint.x, this.endPoint.x)
         );
     }
 

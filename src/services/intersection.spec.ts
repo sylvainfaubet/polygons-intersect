@@ -154,7 +154,7 @@ describe("intersection", () => {
     });
 
     describe("all points of one polygon in another", () => {
-        it("should return array with one new polygon", () => {
+        it("should return array with poly2", () => {
             const poly1 = new Polygon([
                 new Point(10, 10),
                 new Point(10, 40),
