@@ -33,7 +33,7 @@
     "build": "tsc",
     "lint": "tslint -c tslint.json 'src/**.ts'"
   },
-  "version": "1.3.0",
+  "version": "2.0.0",
   "dependencies": {
     "typescript": "^4.0.5"
   }
