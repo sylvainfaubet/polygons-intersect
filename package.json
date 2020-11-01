@@ -29,7 +29,7 @@
     "build": "tsc --project tsconfig.app.json",
     "lint": "tslint --project ."
   },
-  "version": "2.0.0",
+  "version": "2.0.1",
   "dependencies": {
     "@types/jest": "^26.0.15",
     "ts-node": "^8.10.2",
