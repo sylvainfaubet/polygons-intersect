@@ -4,191 +4,150 @@ import intersection from "./intersection";
 
 describe("intersection", () => {
     describe("polygons intersect", () => {
-        it("should return array with one new polygon", () => {
-            const poly1 = new Polygon([
-                new Point(10, 100),
-                new Point(40, 100),
-                new Point(80, 60),
-                new Point(20, 20)
-            ]);
-            const poly2 = new Polygon([
-                new Point(30, 70),
-                new Point(90, 90),
-                new Point(110, 50),
-                new Point(70, 10)
-            ]);
-            const expectedResult = new Polygon(
-                [
-                    new Point(60, 80),
-                    new Point(30, 70),
-                    new Point(50, 40),
-                    new Point(80, 60)
-                ],
-                true
-            );
-            const result = intersection(poly1, poly2);
-            expect(result.length).toBe(1);
-            expect(result[0].getPath()).toEqual(expectedResult.getPath());
-        });
-        it("should return array with one new polygon float", () => {
-            const poly1 = new Polygon([
-                new Point(40, 100),
-                new Point(80, 60),
-                new Point(30, 30),
-                new Point(110, 5),
-                new Point(30, 5),
-                new Point(20, 20),
-                new Point(10, 100)
-            ]);
-            const poly2 = new Polygon([
-                new Point(20, 10),
-                new Point(10, 30),
-                new Point(40, 30),
-                new Point(40, 10)
-            ]);
-            const expectedResult = new Polygon([
-                new Point(30, 30),
-                new Point(18.75, 30),
-                new Point(20, 20),
-                new Point(26.67, 10),
-                new Point(40, 10),
-                new Point(40, 26.88)
-            ]);
-            const result = intersection(poly1, poly2);
-            expect(result.length).toBe(1);
-            expect(result[0].getPath()).toEqual(expectedResult.getPath());
-        });
+        it("should return expected", () => {
+            const tests = [
+                {
+                    poly1: [{ x: 10, y: 100 }, { x: 40, y: 100 }, { x: 80, y: 60 }, { x: 20, y: 20 }],
+                    poly2: [{ x: 30, y: 70 }, { x: 90, y: 90 }, { x: 110, y: 50 }, { x: 70, y: 10 }],
+                    expectedResults: [[{ x: 60, y: 80 }, { x: 30, y: 70 }, { x: 50, y: 40 }, { x: 80, y: 60 }]],
+                }, {
+                    poly1: [{ x: 903, y: 429 }, { x: 1184, y: 429 }, { x: 1184, y: 621 }, { x: 903, y: 621 }],
+                    poly2: [{ x: 902, y: 441 }, { x: 1185, y: 441 }, { x: 1185, y: 631 }, { x: 902, y: 631 }],
+                    expectedResults: [[{ x: 1184, y: 441 }, { x: 903, y: 441 }, { x: 903, y: 621 }, { x: 1184, y: 621 }]],
 
-        it("should return array with two new polygons", () => {
-            const poly1 = new Polygon([
-                new Point(40, 100),
-                new Point(80, 60),
-                new Point(30, 30),
-                new Point(110, 5),
-                new Point(30, 5),
-                new Point(20, 20),
-                new Point(10, 100)
-            ]);
-            const poly2 = new Polygon([
-                new Point(30, 70),
-                new Point(90, 90),
-                new Point(110, 50),
-                new Point(70, 10)
-            ]);
-            const expectedResult = [
-                new Polygon([
-                    new Point(60, 80),
-                    new Point(30, 70),
-                    new Point(49.05, 41.43),
-                    new Point(80, 60)
-                ]),
-                new Polygon([
-                    new Point(63.68, 19.47),
-                    new Point(70, 10),
-                    new Point(75.71, 15.71),
-                    new Point(63.69, 19.47)
-                ])
+                }, {
+                    poly1: [
+                        { x: 40, y: 100 },
+                        { x: 80, y: 60 },
+                        { x: 30, y: 30 },
+                        { x: 110, y: 5 },
+                        { x: 30, y: 5 },
+                        { x: 20, y: 20 },
+                        { x: 10, y: 100 }
+                    ],
+                    poly2: [
+                        { x: 30, y: 70 },
+                        { x: 90, y: 90 },
+                        { x: 110, y: 50 },
+                        { x: 70, y: 10 }
+                    ],
+                    expectedResults: [
+                        [
+                            { x: 60, y: 80 },
+                            { x: 30, y: 70 },
+                            { x: 49.05, y: 41.43 },
+                            { x: 80, y: 60 }
+                        ], [
+                            { x: 63.68, y: 19.47 },
+                            { x: 70, y: 10 },
+                            { x: 75.71, y: 15.71 },
+                            { x: 63.69, y: 19.47 }
+                        ]
+                    ]
+                }, {
+                    poly1: [
+                        { x: 2, y: 1 },
+                        { x: 2, y: 13 },
+                        { x: 16, y: 13 },
+                        { x: 16, y: 1 }
+                    ],
+                    poly2: [
+                        { x: 17, y: 2 },
+                        { x: 14, y: 2 },
+                        { x: 14, y: 6 },
+                        { x: 17, y: 6 }
+                    ],
+                    expectedResults: [[
+                        { x: 16, y: 6 },
+                        { x: 14, y: 6 },
+                        { x: 14, y: 2 },
+                        { x: 16, y: 2 }
+                    ]],
+                }
+
             ];
-            const result = intersection(poly1, poly2);
-            expect(result.length).toBe(2);
-            expect(result[0].getPath()).toEqual(expectedResult[0].getPath());
-            expect(result[1].getPath()).toEqual(expectedResult[1].getPath());
-        });
-        it("should return 4 points", () => {
-            const poly1 = new Polygon([
-                new Point(2, 1),
-                new Point(2, 13),
-                new Point(16, 13),
-                new Point(16, 1)
-            ]);
-            const poly2 = new Polygon([
-                new Point(17, 2),
-                new Point(14, 2),
-                new Point(14, 6),
-                new Point(17, 6)
-            ]);
-            const expected = new Polygon([
-                new Point(16, 6),
-                new Point(14, 6),
-                new Point(14, 2),
-                new Point(16, 2)
-            ]);
-            const result = intersection(poly1, poly2);
-            expect(result.length).toBe(1);
-            expect(result[0].getPath()).toEqual(expected.getPath());
-        });
-    });
+            tests.forEach(test => {
+                const poly1 = Polygon.fromJson(test.poly1);
+                const poly2 = Polygon.fromJson(test.poly2);
 
-    describe("polygons touch each other without intersection", () => {
-        it("should return empty array (touch in two tops)", () => {
-            const poly1 = new Polygon([
-                new Point(30, 10),
-                new Point(30, 20),
-                new Point(20, 15)
-            ]);
-            const poly2 = new Polygon([
-                new Point(30, 10),
-                new Point(30, 20),
-                new Point(40, 20),
-                new Point(40, 10)
-            ]);
-            const result = intersection(poly1, poly2);
-            expect(result).toEqual([]);
+                const results = intersection(poly1, poly2)
+                results.forEach((res, idx) => {
+                    expect(res.getPath()).toEqual(test.expectedResults[idx]);
+                });
+            })
+        })
+
+        describe("polygons touch each other without intersection", () => {
+            it("should return empty array (touch in two tops)", () => {
+                const poly1 = Polygon.fromJson([
+                    { x: 30, y: 10 },
+                    { x: 30, y: 20 },
+                    { x: 20, y: 15 }
+                ]);
+                const poly2 = Polygon.fromJson([
+                    { x: 30, y: 10 },
+                    { x: 30, y: 20 },
+                    { x: 40, y: 20 },
+                    { x: 40, y: 10 }
+                ]);
+                const result = intersection(poly1, poly2);
+                expect(result).toEqual([]);
+            });
+
+            it("should return empty array (touch in two tops and one point on the edge)", () => {
+                const poly1 = Polygon.fromJson([
+                    { x: 10, y: 20 },
+                    { x: 30, y: 10 },
+                    { x: 30, y: 20 },
+                    { x: 30, y: 30 }
+                ]);
+                const poly2 = Polygon.fromJson([
+                    { x: 30, y: 10 },
+                    { x: 30, y: 30 },
+                    { x: 50, y: 20 }
+                ]);
+                const result = intersection(poly1, poly2);
+                expect(result).toEqual([]);
+            });
         });
 
-        it("should return empty array (touch in two tops and one point on the edge)", () => {
-            const poly1 = new Polygon([
-                new Point(10, 20),
-                new Point(30, 10),
-                new Point(30, 20),
-                new Point(30, 30)
-            ]);
-            const poly2 = new Polygon([
-                new Point(30, 10),
-                new Point(30, 30),
-                new Point(50, 20)
-            ]);
-            const result = intersection(poly1, poly2);
-            expect(result).toEqual([]);
+        describe("all points of one polygon in another", () => {
+            it("should return array with poly2", () => {
+                const poly1 = Polygon.fromJson([
+                    { x: 10, y: 10 },
+                    { x: 10, y: 40 },
+                    { x: 40, y: 40 },
+                    { x: 40, y: 10 }
+                ]);
+                const poly2 = Polygon.fromJson([
+                    { x: 20, y: 20 },
+                    { x: 20, y: 30 },
+                    { x: 30, y: 30 },
+                    { x: 30, y: 20 }
+                ]);
+                const result = intersection(poly1, poly2);
+                expect(result.length).toBe(1);
+                expect(result[0].getPath()).toEqual(poly2.getPath());
+            });
         });
-    });
 
-    describe("all points of one polygon in another", () => {
-        it("should return array with poly2", () => {
-            const poly1 = new Polygon([
-                new Point(10, 10),
-                new Point(10, 40),
-                new Point(40, 40),
-                new Point(40, 10)
-            ]);
-            const poly2 = new Polygon([
-                new Point(20, 20),
-                new Point(20, 30),
-                new Point(30, 30),
-                new Point(30, 20)
-            ]);
-            const result = intersection(poly1, poly2);
-            expect(result.length).toBe(1);
-            expect(result[0].getPath()).toEqual(poly2.getPath());
-        });
-    });
-
-    describe("polygons don't intersect each other", () => {
-        it("should return empty array", () => {
-            const poly1 = new Polygon([
-                new Point(10, 10),
-                new Point(10, 20),
-                new Point(20, 20),
-                new Point(20, 10)
-            ]);
-            const poly2 = new Polygon([
-                new Point(30, 10),
-                new Point(30, 20),
-                new Point(40, 20),
-                new Point(40, 10)
-            ]);
-            const result = intersection(poly1, poly2);
-            expect(result).toEqual([]);
+        describe("polygons don't intersect each other", () => {
+            it("should return empty array", () => {
+                const poly1 = Polygon.fromJson([
+                    { x: 10, y: 10 },
+                    { x: 10, y: 20 },
+                    { x: 20, y: 20 },
+                    { x: 20, y: 10 }
+                ]);
+                const poly2 = Polygon.fromJson([
+                    { x: 30, y: 10 },
+                    { x: 30, y: 20 },
+                    { x: 40, y: 20 },
+                    { x: 40, y: 10 }
+                ]);
+                const result = intersection(poly1, poly2);
+                expect(result).toEqual([]);
+            });
         });
     });
 });

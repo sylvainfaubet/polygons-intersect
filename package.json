@@ -1,40 +1,38 @@
 {
-  "author": "Dmitriy Dudkevich <dyda06@mail.ru>",
+  "author": "Sylvain FAUBET <faubet.sylvain@gmail.com>",
   "bugs": {
     "url": "https://github.com/sylvainfaubet/polygons-intersect/issues"
   },
-  "description": "This script finds all points where the polygons intersect each other.",
+  "description": "This script finds all points where the polygons intersect each other. This repository is a fork from DudaGod/polygons-intersect's package, traduced in typescript and fixed from minor bugs.",
   "devDependencies": {
-    "@types/jest": "^24.9.1",
-    "jasmine": "^3.6.3",
-    "jasmine-ts": "^0.3.0",
     "jest": "^24.9.0",
-    "nyc": "^15.1.0",
-    "rimraf": "^2.7.1",
-    "ts-node": "^8.10.2",
+    "ts-jest": "^26.4.3",
     "tslint": "^5.20.1"
   },
-  "directories": {},
   "keywords": [
     "2d",
     "polygon",
-    "intersect"
+    "intersect",
+    "typescript"
   ],
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "name": "polygons-intersect",
+  "name": "sf-polygons-intersect",
   "repository": {
     "type": "git",
     "url": "https://github.com/sylvainfaubet/polygons-intersect"
   },
   "scripts": {
-    "test": "jasmine-ts --config=jasmine.json",
-    "build": "tsc",
-    "lint": "tslint -c tslint.json 'src/**.ts'"
+    "prepare": "npm run build",
+    "test": "jest",
+    "build": "tsc --project tsconfig.app.json",
+    "lint": "tslint --project ."
   },
   "version": "2.0.0",
   "dependencies": {
+    "@types/jest": "^26.0.15",
+    "ts-node": "^8.10.2",
     "typescript": "^4.0.5"
   }
 }

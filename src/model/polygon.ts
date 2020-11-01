@@ -1,3 +1,4 @@
+import intersection from "../services/intersection";
 import { Edge } from "./edge";
 import { Point, pointState } from "./point";
 
@@ -10,6 +11,10 @@ export class Polygon {
     private edges: Edge[];
     private edgesIndex = 0;
     private direction = direction.forward;
+
+    static fromJson(array: {x:number, y:number, state?:pointState}[], intersectionEnd?:boolean): Polygon{
+        return new Polygon(array.map(it => Point.fromJson(it)), intersectionEnd);
+    }
 
     constructor(private points: Point[] = [], private intersectionEnd = false) {
         this.edges = this.points.map((item, i, arr) => {

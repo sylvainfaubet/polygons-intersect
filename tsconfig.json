@@ -5,8 +5,5 @@
     "target": "esnext",
     "sourceMap": true,
     "typeRoots": ["node_modules/@types"]
-  },
-  "include": ["src/**/*", "spec/point.spec.ts"],
-  "exclude": ["src/**/*.spec.ts"],
-  "compileOnSave": true
+  }
 }

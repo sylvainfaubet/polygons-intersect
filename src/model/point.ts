@@ -6,11 +6,16 @@ export enum pointState {
 }
 
 export class Point {
+    
     constructor(
         public x: number,
         public y: number,
         public state: pointState = pointState.undefined
     ) {}
+
+    static fromJson(point: {x:number, y:number, state?:pointState}) : Point {
+        return new Point(point.x, point.y, point.state);
+    }
 
     public calcDistance(point: Point): number {
         return Math.sqrt(
