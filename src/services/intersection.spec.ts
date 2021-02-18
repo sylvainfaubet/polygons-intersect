@@ -1,6 +1,5 @@
-import { Point, pointState } from "../model/point";
 import { Polygon } from "../model/polygon";
-import intersection from "./intersection";
+import { intersection } from "./intersection";
 
 describe("intersection", () => {
     describe("polygons intersect", () => {

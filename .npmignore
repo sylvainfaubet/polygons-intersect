@@ -1,0 +1,7 @@
+src
+.vscode
+.github
+.editorconfig
+jest.config.js
+tsconfig.*
+tslint.*

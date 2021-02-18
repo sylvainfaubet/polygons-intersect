@@ -1,4 +1,3 @@
-import intersection from "../services/intersection";
 import { Edge } from "./edge";
 import { Point, pointState } from "./point";
 
@@ -12,7 +11,7 @@ export class Polygon {
     private edgesIndex = 0;
     private direction = direction.forward;
 
-    static fromJson(array: {x:number, y:number, state?:pointState}[], intersectionEnd?:boolean): Polygon{
+    static fromJson(array: { x: number, y: number, state?: pointState }[], intersectionEnd?: boolean): Polygon {
         return new Polygon(array.map(it => Point.fromJson(it)), intersectionEnd);
     }
 

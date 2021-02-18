@@ -3,7 +3,7 @@ import { EdgeIntersection } from "../model/edgeIntersection";
 import { Point, pointState } from "../model/point";
 import { Polygon } from "../model/polygon";
 
-export default function intersection(
+export function intersection(
     poly1: Polygon,
     poly2: Polygon
 ): Polygon[] {

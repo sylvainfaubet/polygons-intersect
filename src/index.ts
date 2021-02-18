@@ -1,4 +1,3 @@
-export * from "./model/point";
-export * from "./model/polygon";
-export * as intersect from "./services/intersection";
+export { intersection } from "./services/intersection";
+export { Polygon } from "./model/polygon";
 

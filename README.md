@@ -1,18 +1,18 @@
-# polygons-intersect
+# ts-polygons-intersect
 
 This script finds all points where the polygons intersect each other. 
 
 ## Install
 ```bash
-npm install polygons-intersect
+npm install ts-polygons-intersect
 ```
 
 ## Usage
 ```typescript
-var polygonsIntersect = require('polygons-intersect');
-var poly1 = [{x: 10, y: 10}, {x: 10, y: 30}, {x: 30, y: 30}, {x: 30, y: 10}];
-var poly2 = [{x: 20, y: 20}, {x: 20, y: 40}, {x: 40, y: 40}, {x: 40, y: 20}];
-console.log(polygonsIntersect(poly1, poly2));
+import {Polygon, intersection} from 'ts-polygons-intersect';
+const poly1 = Polygon.fromJson([{x:0,y:1}, ...]);
+const poly1 = Polygon.fromJson([{x:1,y:0}, ...]);
+const intersection = intersection(poly1, poly2);
 ```
 
 ## License

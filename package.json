@@ -1,12 +1,12 @@
 {
   "author": "Sylvain FAUBET <faubet.sylvain@gmail.com>",
   "bugs": {
-    "url": "https://github.com/sylvainfaubet/polygons-intersect/issues"
+    "url": "https://github.com/sylvainfaubet/ts-polygons-intersect/issues"
   },
   "description": "This script finds all points where the polygons intersect each other. This repository is a fork from DudaGod/polygons-intersect's package, traduced in typescript and fixed from minor bugs.",
   "devDependencies": {
     "jest": "^24.9.0",
-    "ts-jest": "^26.4.3",
+    "ts-jest": "^26.5.1",
     "tslint": "^5.20.1"
   },
   "keywords": [
@@ -18,10 +18,10 @@
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "name": "sf-polygons-intersect",
+  "name": "ts-polygons-intersect",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sylvainfaubet/polygons-intersect"
+    "url": "https://github.com/sylvainfaubet/ts-polygons-intersect"
   },
   "scripts": {
     "prepare": "npm run build",
@@ -31,8 +31,8 @@
   },
   "version": "2.0.1",
   "dependencies": {
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.20",
     "ts-node": "^8.10.2",
-    "typescript": "^4.0.5"
+    "typescript": "^4.1.5"
   }
 }
